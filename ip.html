@@ -1,0 +1,41 @@
+
+
+<script type="text/x-red" data-template-name="ip">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="ip">
+    <p>This node provides the IP address (internal & public) of the machine hosting the Node-red.</p>
+    <p>The output message contains all IP addresses.</p>
+    <p>The output <b>msg.payload</b> contains for each address : </p>
+    <ul>
+        <li><code>internal.v4</code> : the internal IPv4 address.</li>
+        <li><code>internal.v6</code> : the internal IPv6 address.</li>
+        <li><code>public.v4</code> : the public IPv4 address.</li>
+        <li><code>public.v6</code> : the public IPv6 address.</li>
+    </ul>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('ip',{
+        category: 'output',
+        color:"#3fadb5",
+        defaults: {
+            name: {value:"ip"}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "bridge.png",
+        align: "right",
+        label: function() {
+            return this.name;
+        },
+        labelStyle: function() {
+            return (this.name)?"node_label_italic":"";
+        }
+
+    });
+</script>
