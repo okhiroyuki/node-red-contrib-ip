@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-ip",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "This node provides the IP address (internal & public) of the machine hosting the Node-red.",
   "main": "ip.js",
   "scripts": {
