@@ -12,7 +12,8 @@
   },
   "keywords": [
     "internal-ip",
-    "public-ip"
+    "public-ip",
+    "node-red"
   ],
   "author": "hiroyuki okada",
   "license": "MIT",
