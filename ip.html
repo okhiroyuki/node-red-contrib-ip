@@ -1,21 +1,40 @@
-
-
 <script type="text/x-red" data-template-name="ip">
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i>Name</label>
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label><i class="fa fa-home"></i> Internal</label>
+        <input type="checkbox" id="node-input-internalIPv4" style="width:auto; margin-bottom: 5px;"/>
+        <label for="node-input-internalIPv4" style="width:45px;">IPv4</label>
+        <input type="checkbox" id="node-input-internalIPv6" style="width:auto; margin-bottom: 5px;"/>
+        <label for="node-input-internalIPv6" style="width:45px;">IPv6</label>
+    </div>
+    <div class="form-row">
+        <label><i class="fa fa-globe"></i> Public</label>
+        <input type="checkbox" id="node-input-publicIPv4" style="width:auto; margin-bottom: 5px;"/>
+        <label for="node-input-publicIPv4" style="width:45px;">IPv4</label>
+        <input type="checkbox" id="node-input-publicIPv6" style="width:auto; margin-bottom: 5px;"/>
+        <label for="node-input-publicIPv6" style="width:45px;">IPv6</label>   
+        <input type="checkbox" id="node-input-https" style="width:auto; margin-bottom: 5px;"/> 
+        <label for="node-input-https" style="width:45px;"> Https</label>
+        <span> Timeout</span>
+        <input type="text" id="node-input-timeout" placeholder="5000" style="width:52px;"/>
+        <span> ms</span>
     </div>
 </script>
 
 <script type="text/x-red" data-help-name="ip">
-    <p>This node provides the IP address (internal & public) of the machine hosting the Node-red.</p>
-    <p>The output message contains all IP addresses.</p>
-    <p>The output <b>msg.payload</b> contains for each address : </p>
+    <p>This simple node returns the internal or public IP address of the Node-red host.</p>
+    <p>By default, for determining a public IP address, it queries the DNS records of OpenDNS.</p>
+    <p>Https - more secure but slower metod, which using the icanhazip.com service.</p>
+    <p>Timeout - time in milliseconds until the request is considered to be exceeded.</p>
+    <p>Example of output message: <b>msg.payload</b>:</p>
     <ul>
-        <li><code>internal.v4</code> : the internal IPv4 address.</li>
-        <li><code>internal.v6</code> : the internal IPv6 address.</li>
-        <li><code>public.v4</code> : the public IPv4 address.</li>
-        <li><code>public.v6</code> : the public IPv6 address.</li>
+        <li><code>internalIPv4</code> : 192.168.200.62</li>
+        <li><code>internalIPv6</code> : fe80::64ef:a771:73e4:d1e1%11</li>
+        <li><code>publicIPv4</code> : 216.58.216.164</li>
+        <li><code>publicIPv6</code> : 2607:f8b0:400a:807::2004</li>
     </ul>
 </script>
 
@@ -24,7 +43,13 @@
         category: 'function',
         color:"#3fadb5",
         defaults: {
-            name: {value:"ip"}
+            name: {value:"ip"},
+            https: {value:false},
+            timeout: {value: "5000", required:false, validate:RED.validators.number()},
+            internalIPv4: {value:true},
+            internalIPv6: {value:true},
+            publicIPv4: {value:true},
+            publicIPv6: {value:true}
         },
         inputs:1,
         outputs:1,
@@ -35,7 +60,12 @@
         },
         labelStyle: function() {
             return (this.name)?"node_label_italic":"";
+        },
+        oneditprepare: function() {
+            $("#node-input-timeout").spinner({
+                min:500,
+                max:10000
+            });
         }
-
     });
 </script>
