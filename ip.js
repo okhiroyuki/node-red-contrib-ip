@@ -3,78 +3,54 @@ module.exports = function (RED) {
     const internalIp = require('internal-ip');
     const publicIp = require('public-ip');
 
-    function getInternalIPv4(){
-        return new Promise((resolve, reject) => {
-            internalIp.v4().then(ip => {
-                resolve(['internalIPv4', ip]);
-            }).catch(err =>{
-                resolve(['internalIPv4', null]);
-            });
-        });
-    }
-    function getInternalIPv6(){
-        return new Promise((resolve, reject) => {
-            internalIp.v6().then(ip => {
-                resolve(['internalIPv6', ip]);
-            }).catch(err =>{
-                resolve(['internalIPv6', null]);
-            });
-        });
-    }
-    function getPublicIPv4(){
-        return new Promise((resolve, reject) => {
-            publicIp.v4().then(ip => {
-                resolve(['publicIPv4', ip]);
-            }).catch(err =>{
-                resolve(['publicIPv4', null]);
-            });
-        });
-    }
-    function getPublicIPv6(){
-        return new Promise((resolve, reject) => {
-            publicIp.v6().then(ip => {
-                resolve(['publicIPv6', ip]);
-            }).catch(err =>{
-                resolve(['publicIPv6', null]);
-            });
-        });
-    }
-
 	function ip(n) {
         RED.nodes.createNode(this, n);
         var node = this;
         node.name = n.name;
-        node.https = n.https;
-        node.timeout = n.timeout;
-        node.internalIPv4 = n.internalIPv4;
-        node.internalIPv6 = n.internalIPv6;
-        node.publicIPv4 = n.publicIPv4;
-        node.publicIPv6 = n.publicIPv6;
-        var opt = {};
-        var promises = [];
+        node.opt = {};
+        node.requests = [];
 
-        if(node.https) opt.https = true;
-        if(node.timeout !== 5000 && node.timeout >= 5000 && node.timeout <= 10000) opt.timeout = node.timeout;
-        if(node.internalIPv4) promises.push(getInternalIPv4());
-        if(node.internalIPv6) promises.push(getInternalIPv6());
-        if(node.publicIPv4) promises.push((opt.length > 0) ? getPublicIPv4(opt) : getPublicIPv4());
-        if(node.publicIPv6) promises.push((opt.length > 0) ? getPublicIPv6(opt) : getPublicIPv6());
-        
-        node.on("input", function(msg) {
-            if(promises.length > 0){
-                msg.payload = {};
-                Promise.all(promises).then((results) => {
-                    for(let i=0; i < results.length; i++){
-                        let result= results[i];
-                        if(result !== null && result !== undefined){  
-                            msg.payload[result[0]] = result[1];
-                        }
-                    }
-                    if(Object.keys(msg.payload).length > 0){
-                        node.send(msg);
-                    }
-                });
+        if(n.https) node.opt.https = true;
+        if((parseInt(n.timeout)) !== 5000 && (parseInt(n.timeout)) >= 5000 && (parseInt(n.timeout)) <= 10000){
+            node.opt.timeout = parseInt(n.timeout);
+        }
+ 
+        function getIP(name, request, args){
+            return async () => {
+                try{
+                    let ip = await request(args);
+                    return [name, ip];
+                }catch{
+                    return [name, null];
+                }
             }
+        }
+
+        if(n.internalIPv4) node.requests.push(getIP('internalIPv4', internalIp.v4));
+        if(n.internalIPv6) node.requests.push(getIP('internalIPv6', internalIp.v6));
+        if(n.publicIPv4) node.requests.push(getIP('publicIPv4', publicIp.v4, node.opt));
+        if(n.publicIPv6) node.requests.push(getIP('publicIPv6', publicIp.v6, node.opt));
+
+        node.on("input", function(msg) { 
+            msg.payload = {};  
+            (async () =>{
+                let requests = node.requests;
+                let promises = [];
+                for (let i = 0; i < requests.length; i++) {
+                    promises.push(requests[i]());
+                }
+                let results = await Promise.all(promises);
+            
+                for(let i = 0; i < results.length; i++){
+                    let result = results[i];
+                    if(result !== null && result !== undefined){ 
+                        msg.payload[result[0]] = result[1];
+                    }
+                }
+                if(Object.keys(msg.payload).length > 0){
+                    node.send(msg);
+                }
+            })();
         });
     }
     RED.nodes.registerType("ip", ip);
