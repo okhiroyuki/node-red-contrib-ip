@@ -33,7 +33,7 @@ module.exports = function(grunt){
             options: {
                 timeout: 3000
             },
-            all: { src: ['test/**_spec.js'] }
+            all: { src: ['test/*_spec.js'] }
         },
         mocha_istanbul: {
             options: {
@@ -42,7 +42,7 @@ module.exports = function(grunt){
                 reportFormats: ['lcov','html'],
                 print: 'both'
             },
-            all: { src: ['test/**_spec.js'] }
+            all: { src: ['test/*_spec.js'] }
         }
     });
 
