@@ -1,6 +1,6 @@
 # node-red-contrib-ip
 
-![npm](https://img.shields.io/npm/v/node-red-contrib-ip.svg) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7031e8a1b0784a81a8d79e19818549f3)](https://app.codacy.com/app/okhiroyuki/node-red-contrib-ip?utm_source=github.com&utm_medium=referral&utm_content=okhiroyuki/node-red-contrib-ip&utm_campaign=Badge_Grade_Dashboard)
+![npm](https://img.shields.io/npm/v/node-red-contrib-ip.svg) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7031e8a1b0784a81a8d79e19818549f3)](https://app.codacy.com/app/okhiroyuki/node-red-contrib-ip?utm_source=github.com&utm_medium=referral&utm_content=okhiroyuki/node-red-contrib-ip&utm_campaign=Badge_Grade_Dashboard) [![Build Status](https://travis-ci.org/okhiroyuki/node-red-contrib-ip.svg?branch=master)](https://travis-ci.org/okhiroyuki/node-red-contrib-ip)
 
 This simple node returns the internal or public IP address of the Node-red host.
 
