@@ -20,10 +20,10 @@ module.exports = function (RED) {
                 try{
                     let ip = await request(args);
                     return [name, ip];
-                }catch{
+                }catch(e){
                     return [name, null];
                 }
-            }
+            };
         }
 
         if(n.internalIPv4) node.requests.push(getIP('internalIPv4', internalIp.v4));
@@ -54,4 +54,4 @@ module.exports = function (RED) {
         });
     }
     RED.nodes.registerType("ip", ip);
-}
+};
