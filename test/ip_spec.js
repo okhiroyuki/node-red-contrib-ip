@@ -76,6 +76,7 @@ describe("IP Node", () => {
   });
 
   it("publicIPv6", function (done) {
+    this.timeout(60000);
     const flow = [
       { id: "n1", type: "ip", internalIPv4: false, internalIPv6: false, publicIPv4: false, publicIPv6: true, timeout: "5000", https: false, name: "test", wires:[["n2"]] },
       { id: "n2", type: "helper" }

@@ -52,6 +52,6 @@ module.exports = function(grunt){
     grunt.loadNpmTasks("grunt-simple-mocha");
     grunt.loadNpmTasks('grunt-mocha-istanbul');
 
-    grunt.registerTask('default', ['jshint:all', 'jsonlint:all', 'inlinelint:html', "mocha_istanbul:all" ]);
-    grunt.registerTask('test', ["simplemocha:all"]);
+    grunt.registerTask('default', ['jshint:all', 'jsonlint:all', 'inlinelint:html', "simplemocha:all"]);
+    grunt.registerTask('istanbul', ["mocha_istanbul:all"]);
 };
