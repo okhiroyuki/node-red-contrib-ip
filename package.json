@@ -4,7 +4,7 @@
   "description": "This node provides the IP address (internal & public) of the machine hosting the Node-red.",
   "main": "ip.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
   "homepage": "https://github.com/okhiroyuki/node-red-contrib-ip#readme",
   "dependencies": {
     "internal-ip": "^4.3.0",
-    "public-ip": "^3.1.0"
+    "public-ip": "^3.2.0"
   },
   "devDependencies": {
     "grunt": "^1.0.4",
@@ -33,8 +33,8 @@
     "grunt-mocha-istanbul": "^5.0.2",
     "grunt-simple-mocha": "^0.4.1",
     "istanbul": "^1.1.0-alpha.1",
-    "mocha": "^6.1.4",
-    "node-red": "^0.20.7",
+    "mocha": "^6.2.2",
+    "node-red": "^0.20.8",
     "node-red-node-test-helper": "^0.2.3",
     "should": "^13.2.3"
   },
