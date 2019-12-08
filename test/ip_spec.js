@@ -95,22 +95,7 @@ describe("IP Node", () => {
   });
 
   describe("publicIpv6", () => {
-    it("onlyHttps : false", function (done) {
-      this.timeout(60000);
-      const flow = [
-        { id: "n1", type: "ip", internalIPv4: false, internalIPv6: false, publicIPv4: false, publicIPv6: true, timeout: "5000", https: false, name: "test", wires:[["n2"]] },
-        { id: "n2", type: "helper" }
-      ];
-      helper.load(node, flow, () => {
-        const n2 = helper.getNode("n2");
-        const n1 = helper.getNode("n1");
-        n2.on("input", (msg) => {
-          msg.payload.should.have.keys("publicIPv6");
-          done();
-        });
-        n1.receive({ });
-      });
-    });  
+    it("skip onlyHttps : false");
 
     it("onlyHttps : true", function (done) {
       this.timeout(60000);
