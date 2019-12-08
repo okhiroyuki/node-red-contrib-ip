@@ -10,7 +10,7 @@ module.exports = function (RED) {
         node.opt = {};
         node.requests = [];
 
-        if(n.https) node.opt.https = true;
+        if(n.https) node.opt.onlyHttps = true;
         if((parseInt(n.timeout)) !== 5000 && (parseInt(n.timeout)) >= 5000 && (parseInt(n.timeout)) <= 10000){
             node.opt.timeout = parseInt(n.timeout);
         }

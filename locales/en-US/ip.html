@@ -1,0 +1,32 @@
+<script type="text/x-red" data-help-name="ip">
+    <p>This simple node returns the internal or public IP address of the Node-red host. 
+    By default, for determining a public IP address, it queries the DNS records of OpenDNS.</p>
+    <h3>Output</h3>
+    <dl class="message-properties">
+        <dt>payload.internalIPv4 <span class="property-type">string</span></dt>
+        <dd>your internal IPv4</dd>
+        <dt>payload.internalIPv6 <span class="property-type">string | null</span></dt>
+        <dd>your internal IPv6</dd>
+        <dt>payload.publicIPv4 <span class="property-type">string</span></dt>
+        <dd>your public IPv4</dd>
+        <dt>payload.publicIPv6 <span class="property-type">string | null</span></dt>
+        <dd>your public IPv6</dd>
+    </dl>
+    <h3>Details</h3>
+    <p>Possible options:</p>
+    <p>Internal: <b>IPv4, IPv6</b></p>
+
+    <p>Public: <b>IPv4, IPv6, </b></p>       
+    <p><b>Https</b> - Use a HTTPS check using the icanhazip.com service instead of the DNS query. ipify.org is used as a fallback if icanhazip.com fails. This check is much more secure and tamper-proof, but also a lot slower.</p>
+    <p><b>Timeout</b> - time in milliseconds until the request is considered to be exceeded.</p>
+    <p>Any positive msg. sent to the node input will generate msg.payload on the output. 
+    The msg.payload will contain only ip addresses set in the node configuration.</p>
+
+    <p>Example of <b>msg.payload</b>:</p>
+    <ul>
+        <li><code>internalIPv4</code> : 192.168.200.62</li>
+        <li><code>internalIPv6</code> : fe80::64ef:a771:73e4:d1e1%11</li>
+        <li><code>publicIPv4</code> : 216.58.216.164</li>
+        <li><code>publicIPv6</code> : 2607:f8b0:400a:807::2004</li>
+    </ul>
+</script>

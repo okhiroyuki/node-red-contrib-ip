@@ -1,0 +1,14 @@
+{
+    "ip":{
+        "ip": "ip",
+        "label":{
+            "internal": "Internal",
+            "public": "Public",
+            "ipv4": "IPv4",
+            "ipv6": "IPv6",
+            "https": "Https",
+            "timeout": "timeout",
+            "ms": "ms"
+        }
+    }
+}
