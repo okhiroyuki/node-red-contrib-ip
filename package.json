@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/okhiroyuki/node-red-contrib-ip#readme",
   "dependencies": {
+    "grunt-nr-locales-htmllint": "^1.0.3",
     "internal-ip": "^5.0.0",
     "public-ip": "^4.0.0"
   },
