@@ -43,6 +43,22 @@ module.exports = function(grunt){
                 print: 'both'
             },
             all: { src: ['test/*_spec.js'] }
+        },
+        nr_locales_htmllint: {
+            all: {
+                options: {
+                  force: false,
+                  "indent-width": false,
+                  "tag-bans": [],
+                  "attr-bans": [],
+                  "link-req-noopener": false,
+                  "spec-char-escape": false,
+                  "line-no-trailing-whitespace": false
+                },
+                src: [
+                    './locales/**/*.html'
+              ]
+            }
         }
     });
 
@@ -51,7 +67,8 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-jsonlint');
     grunt.loadNpmTasks("grunt-simple-mocha");
     grunt.loadNpmTasks('grunt-mocha-istanbul');
+    grunt.loadNpmTasks('grunt-nr-locales-htmllint');
 
-    grunt.registerTask('default', ['jshint:all', 'jsonlint:all', 'inlinelint:html', "simplemocha:all"]);
+    grunt.registerTask('default', ['jshint:all', 'jsonlint:all', 'inlinelint:html', "nr_locales_htmllint:all", "simplemocha:all"]);
     grunt.registerTask('istanbul', ["mocha_istanbul:all"]);
 };
