@@ -1,0 +1,22 @@
+#tests
+test
+coverage
+Gruntfile.js
+
+#build tools
+.travis.yml
+.jenkins.yml
+.codeclimate.yml
+
+#linters
+.jscsrc
+.jshintrc
+.eslintrc*
+
+#editor settings
+.idea
+.editorconfig
+.vscode
+
+#github
+.github
