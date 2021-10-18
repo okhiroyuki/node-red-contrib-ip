@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/okhiroyuki/node-red-contrib-ip#readme",
   "dependencies": {
-    "internal-ip": "^6.2.0",
+    "internal-ip": "^7.0.0",
     "public-ip": "^4.0.3"
   },
   "devDependencies": {
